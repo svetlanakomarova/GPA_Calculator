@@ -1,0 +1,97 @@
+<!--
+Name: Svetlana Komarova
+Assignment: Assignment 3
+Date: August 18, 2021
+
+Description: This page displays the cumulative GPA for all courses that have 
+		final grades.
+Files: 	index.html - the main page to choose the calculators 
+			with an option to add a course.
+ 		evaluation.html - a form that asks the user to input an evaluation 
+			title, actual mark, a maximum mark, a weighting, and a due date.
+		evalResult.html -  displays all the evaluations sorted by due date, 
+			then by course code.
+		course.html - gives the ability for the user to add new courses 
+			to the courses table.
+		termGPA.html - displays the GPA for the selected term.
+		general.html - a separate file to store Thymeleaf fragments. 
+       	main.css - the main styles for this application.
+       	Evaluation.java - models "Evaluation" bean.
+       	Course.java - models "Course" bean.
+       	MainController.java - the main controller with handler methods.
+-->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<head th:replace="fragments/general.html :: head">
+<title>GPA</title>
+</head>
+
+<body>
+	<header>
+		<div th:insert="fragments/general.html :: logInfo"></div>
+		<h1 th:unless="${#strings.isEmpty(session.cumGPA)}"
+			th:text="|cumulative GPA: 
+			${#numbers.formatDecimal(session.cumGPA,1,2)}|">GPA</h1>
+
+	</header>
+
+	<form name="frmMenu" method="get">
+		<div th:insert="fragments/general.html :: 
+			displayMenu(~{ :: .breadcrumb})">
+    		<ul class="breadcrumb container" id="menu">
+    			<li><a th:href="@{/}">Main Menu</a></li>
+ 				<li><a th:href="@{/evalcalc}">Evaluation Calculator</a></li>
+				<li><a th:href="@{/addCourse}">Add Course</a></li>
+			</ul>
+    	</div>
+	</form>
+	
+	<div th:if="${#lists.isEmpty(session.courses)}"
+		th:text="'No Grade Info'"></div>
+
+	<div th:unless="${#lists.isEmpty(session.courses)}">
+		<table>
+			<tr>
+				<th>Code</th>
+				<th>Title</th>
+				<th>Credits</th>
+				<th>Complete</th>
+				<th>Term</th>
+				<th>Final Grade</th>
+			</tr>
+			<tr th:each="c : ${session.courses}">
+				<td th:text="${c.code}"></td>
+				<td th:text="${c.title}"></td>
+				<td th:text="${c.credits}"></td>
+				<td th:text="${c.complete}"></td>
+				<td th:text="${c.term}"></td>
+				<td th:text="${#numbers.formatDecimal(c.finalGrade,2,0)}"></td>
+			</tr>
+		</table>
+
+	</div>
+	
+	<form class="select" name="frmTermGPA" method="get" action="/term">
+		<fieldset>
+			<legend>To calculate a term GPA select a term, then click continue
+			</legend>
+			<span th:each="t : ${session.terms}"> 
+				<label for="${t.term}">
+					<input type="radio" id="${t.term}" name="term" 
+						th:value="${t.term}" checked="checked">term
+				</label>
+				<label for="html" id="termGPA" th:text="|term ${t.term}|">HTML
+				</label>
+			</span>
+		</fieldset>
+		<p>
+			<input type="submit" value="Continue">
+		</p>
+	</form>
+	<div></div>
+
+</body>
+</html>

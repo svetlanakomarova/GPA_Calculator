@@ -1,0 +1,52 @@
+<!--
+Name: Svetlana Komarova
+Assignment: Assignment 3
+Date: August 18, 2021
+
+Description: This application allows students to to keep track of their 
+evaluations and perform various grade calculations. The user can calculate 
+the amount of grade earned on a specific evaluation.
+Description: This is the main page contains list of different calculators with 
+an option to add a course.
+Files: 	evaluation.html - a form that asks the user to input an evaluation 
+			title, actual mark, a maximum mark, a weighting, and a due date.
+		evalResult.html -  displays all the evaluations sorted by due date, 
+			then by course code.
+ 		cumGPA.html - displays the cumulative GPA for all courses that have 
+			final grades.
+		course.html - gives the ability for the user to add new courses 
+			to the courses table.
+		termGPA.html - displays the GPA for the selected term.
+		general.html - a separate file to store Thymeleaf fragments. 
+       	main.css - the main styles for this application.
+       	Evaluation.java - models "Evaluation" bean.
+       	Course.java - models "Course" bean.
+-->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<head th:replace="fragments/general.html :: head">
+<title>Grade Calculators</title>
+</head>
+
+<body>
+	<header>
+		<div th:insert="fragments/general.html :: logInfo"></div>
+		<h1>Grade Calculators</h1>
+	</header>
+	 
+	<form name="frmMenu" method="get">
+		<div th:insert="fragments/general.html :: 
+			displayMenu(~{ :: .breadcrumb})">
+    		<ul class="breadcrumb container" id="menu">
+ 				<li><a th:href="@{/evalcalc}">Evaluation Calculator</a></li>
+				<li><a th:href="@{/cumGPA}">GPA Calculator</a></li>
+				<li><a th:href="@{/addCourse}">Add Course</a></li>
+    		</ul>
+    	</div>
+    </form>	
+    
+</body>
+</html>

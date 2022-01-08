@@ -1,0 +1,74 @@
+<!--
+Name: Svetlana Komarova
+Assignment: Assignment 3
+Date: August 18, 2021
+
+Description: This page gives the ability for the user to add new courses 
+		to the courses table.
+Files: 	index.html - the main page to choose the calculators 
+			with an option to add a course.
+ 		evalResult.html - a Thymeleaf page that displays the results 
+ 			from evaluation.html.
+ 		cumGPA.html - displays the cumulative GPA for all courses that have 
+			final grades.
+		general.html - a separate file to store the Thymeleaf fragments.
+		general.html - a separate file to store Thymeleaf fragments.  			
+       	main.css - the main styles for this application.
+       	Evaluation.java - models "Evaluation" bean.
+       	Course.java - models "Course" bean.
+       	MainController.java - the main controller with handler methods.
+-->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="fragments/general.html :: head">
+<title>Add Course</title>
+</head>
+
+<body>
+	<header>
+		<div th:insert="fragments/general.html :: logInfo"></div>
+		<h1>Add Course</h1>
+	</header>
+
+	<form name="frmMenu" method="get">
+		<div th:insert="fragments/general.html :: 
+			displayMenu(~{ :: .breadcrumb})">
+    		<ul class="breadcrumb container" id="menu">
+    			<li><a th:href="@{/}">Main Menu</a></li>
+ 				<li><a th:href="@{/evalcalc}">Evaluation Calculator</a></li>
+				<li><a th:href="@{/cumGPA}">GPA Calculator</a></li>
+    		</ul>
+    	</div>
+	</form>
+	
+	<form class="course" name="frmCourse" method="post"
+		action="/insertCourse" th:object="${course}">
+		<p>
+			<label for="txtCode"><b>Course Code: </b>
+				<input type='text' id="txtCode" name="code" size="10" 
+					required th:field="*{code}">
+			</label>
+			<label><em>Format: AAAA12345</em>
+			</label><br>
+			<label for="txtTitle"><b>Title:</b>
+				<input type='text' id="txtTitle" name="title" size="25" required 
+					th:field="*{title}">
+			</label><br>
+			<label for="txtCredits"><b>Credit: </b>
+				<input type='text' id="txtCredits" name="credits" size="10" 
+					required th:field="*{credits}">
+			</label>
+			<label><em>Credit must be more than 0 and less than 10</em>
+			</label>
+		</p>
+		<p>
+			<input type="submit">
+		</p>
+	</form>
+
+	<div class="message" th:text="${session.message}"></div>
+
+</body>
+</html>

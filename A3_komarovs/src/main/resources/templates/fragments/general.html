@@ -1,0 +1,40 @@
+<!--
+Name: Svetlana Komarova
+Assignment: Assignment 3
+Date: August 18, 2021
+
+Description: Stores the Thymeleaf fragments to reuse in the pages 
+				in the "Grade Calculators" application.
+-->
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:fragment="head">
+<meta charset="ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="../static/css/main.css" rel="stylesheet"
+	th:href="@{/css/main.css}">
+<link href="https://fonts.googleapis.com/css2?family=Lato"
+	rel="stylesheet">
+<script src="../static/js/scripts" th:src="@{/js/scripts.js}"></script>
+</head>
+<body>
+
+	<div sec:authorize="isAuthenticated()" th:fragment="logInfo">		
+		<form class="logInfo" method="post" action="#" th:action="@{/logout}">
+			Logged in as <b><span sec:authentication="name"></span></b> | 
+			<input type="submit" value="Log Out">
+		</form>
+	</div>
+	
+	<div th:fragment="displayMenu(breadcrumb)">
+    	<ul class="breadcrumb container" id="menu" th:replace="${breadcrumb}">
+			<li><a th:href="@{/}">Main Menu</a></li>
+ 			<li><a th:href="@{/evalcalc}">Evaluation Calculator</a></li>
+			<li><a th:href="@{/cumGPA}">GPA Calculator</a></li>
+			<li><a th:href="@{/addCourse}">Add Course</a></li>
+    	</ul>
+	</div>
+
+</body>
+</html>

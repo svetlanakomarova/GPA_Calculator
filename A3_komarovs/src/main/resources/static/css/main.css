@@ -1,0 +1,143 @@
+/*
+Name: Svetlana Komarova
+Assignment: Assignment 3
+Date: August 18, 2021
+
+Description: Used in all pages in the "Grade Calculators" application.
+*/
+
+@charset "ISO-8859-1";
+body {
+    font-family: 'Lato', sans-serif;
+    border-left: 1px solid #000099;
+    border-right: 1px solid #000099;
+    margin: 10px 15px;
+    padding: 20px 10px;
+}
+h1 {
+    border-top: 1px solid #009688;
+    border-bottom: 2px solid #009688;
+    width: 100%;
+    font-size: 2em; 
+ 	padding-top: 6px;
+ 	padding-bottom: 6px;
+}
+ul#menu li {
+    display: inline;
+    font-size: 20px;
+    text-decoration: none;
+    background-color: #009688;
+    color: #333333;
+    border-top: 1px solid #CCCCCC;
+    border-right: 1px solid #333333;
+    border-bottom: 1px solid #333333;
+    border-left: 1px solid #CCCCCC;
+    margin-right: 4px;
+    padding: 10px;
+}
+a:link {
+    color: white;
+}
+a:visited {
+    color: yellow;
+}
+a:hover {
+    color: #ffa500;
+}
+form.evaluation, .course, .logIn{
+    border: 2px dashed #009688;
+    width: 55%;
+    color: black;
+    margin: 20px 15px;
+    padding: 6px;
+}
+input, button {
+    margin: 8px 0px;
+}
+a#edit:link {
+	 color: #0000EE; 
+}
+a#edit:visited { 
+	color: #551A8B;
+}
+table {
+	border: 2px solid #305A72;
+	border-collapse: collapse;
+	margin: 20px 20px;	
+}
+th, td {
+  	border: 1px solid #009688;
+  	padding: 4px;
+}
+@keyframes myAnimation{
+  0%{
+    opacity: 1;
+    transform: rotateX(90deg);
+  }
+  50%{
+    opacity: 0.5;
+    transform: rotateX(0deg);
+  }
+  100%{
+    display: none;
+    opacity: 0;
+    transform: rotateX(90deg);
+  }
+}
+div.message {
+    animation-name: myAnimation;
+    animation-duration: 4000ms;
+    animation-fill-mode: forwards;
+}
+form.select {
+	margin-left: 20px;
+}
+#termGPA {
+	margin-right: 10px;
+}
+fieldset {
+	border: 2px solid #305A72;
+	display: inline-block;
+}
+form.logIn {
+	font-size: 1.2em;
+	font-weight: bold;
+}
+input[type=submit] {
+    font-size: 1em;
+}
+div.error {
+	font-size: 1.2em;
+	font-weight: bold;
+	color: red;
+	margin-left: 15px;
+}
+div.logout {
+	margin-left: 15px;
+	font-size: 1.2em;
+}
+form.logInfo {
+	background-color: #d9f2e6;
+    font-size: 1.2em;
+    text-align: right;
+    padding: 10px;
+}
+form.logInfo input[type="submit"]{
+    background: none;
+    border: none;
+    color: #0000EE;
+    text-decoration: underline;
+    cursor: pointer;
+}
+a.clink {
+	color: #0000EE; 
+}
+div#display {
+	float: left;
+	position: absolute;
+    background: #ecf8f2;
+    padding: 10px;
+    box-shadow: 1px 1px 25px rgba(1, 4, 5, 0.35);
+    border-radius: 10px;
+    display: none;
+}

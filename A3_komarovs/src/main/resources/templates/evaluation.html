@@ -1,0 +1,84 @@
+<!--
+Name: Svetlana Komarova
+Assignment: Assignment 3
+Date: August 18, 2021
+
+Description: This page asks the user to input an evaluation title, actual mark, 
+a maximum mark, a weighting, and a due date.
+Files: 	index.html - the main page to choose the calculators 
+			with an option to add a course.
+ 		evalResult.html -  displays all the evaluations sorted by due date, 
+			then by course code.
+ 		cumGPA.html - displays the cumulative GPA for all courses that have 
+			final grades.
+		course.html - gives the ability for the user to add new courses 
+			to the courses table.
+		termGPA.html - displays the GPA for the selected term.
+		general.html - a separate file to store Thymeleaf fragments. 
+       	main.css - the main styles for this application.
+       	Evaluation.java - models "Evaluation" bean.
+       	Course.java - models "Course" bean.
+-->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="fragments/general.html :: head">
+<title>Evaluation Calculator</title>
+</head>
+
+<body>
+	<header>
+		<div th:insert="fragments/general.html :: logInfo"></div>
+		<h1>Evaluation Calculator</h1>
+	</header>
+
+	<form name="frmMenu" method="get">
+		<div th:insert="fragments/general.html :: 
+			displayMenu(~{ :: .breadcrumb})">
+    		<ul class="breadcrumb container" id="menu">
+    			<li><a th:href="@{/}">Main Menu</a></li>
+				<li><a th:href="@{/cumGPA}">GPA Calculator</a></li>
+				<li><a th:href="@{/addCourse}">Add Course</a></li>
+    		</ul>
+    	</div>
+	</form>
+	
+	<!-- evaluation calculator form -->
+	<form class="evaluation" name="frmEvaluation" method="post"
+		action="/eval" th:object="${evaluation}">
+		<input type="hidden" name="id" th:field="*{id}">
+		<p>
+			<label for="txtEvaluation"><b>Evaluation Title: </b>
+				<input type='text' id="txtEvaluation" name="evaluation" 
+					size="25" required th:field="*{title}"> 
+			</label> <br> 
+			<label for="course"><b>Select Course:</b> 
+				<select id="course" name="course" th:field="*{course}">
+					<option th:each="c : ${session.courses}" 
+						th:text="${c.title}" th:value="${c.code}">
+					</option>
+				</select> 
+			</label><br> 
+			<label for="txtMark"><b>Mark:</b> 
+				<input type='text' id="txtMark" name="mark" size="10" required
+					th:field="*{grade}"> 
+			</label> <label for="txtOutOf"><b>Out Of: </b> 
+				<input type='text' id="txtOutOf" name="outOf" size="10"
+					required th:field="*{max}"> 
+			</label> <br> 
+			<label for="txtWeighting"><b>Weighting: </b> 
+				<input type='text' id="txtWeighting" name="weighting" size="10" 
+					required th:field="*{weight}">
+			</label> <br> 
+			<label for="dueDate"><b>Due Date: </b> 
+				<input type='date' id="dueDate" name="dueDate" size="25"
+					required th:field="*{dueDate}"> 
+			</label>
+		</p>
+
+		<p><input type="submit"></p>
+	</form>
+
+</body>
+</html>
